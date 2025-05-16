@@ -1,7 +1,7 @@
-// src/main/resources/static/src/components/Register.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
+import './auth/Auth.css';
 
 function Register() {
   const [formData, setFormData] = useState({

@@ -1,16 +1,18 @@
 // src/main/resources/static/src/App.jsx
-import React, {useEffect} from 'react';
-import {BrowserRouter as Router, Navigate, Route, Routes, useNavigate} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
+import UserProfile from './components/UserProfile';
 import authService from './services/authService';
 import './App.css';
+import './styles/common.css';
 
 // Компонент для обработки выхода из системы
 function Logout() {
   const navigate = useNavigate();
   
-  useEffect(() => {
+  React.useEffect(() => {
     authService.logout();
     navigate('/login');
   }, [navigate]);
@@ -18,28 +20,21 @@ function Logout() {
   return <div>Выход из системы...</div>;
 }
 
-// Защищенный компонент дашборда (как пример)
+// Компонент дашборда
 function Dashboard() {
   const user = authService.getCurrentUser();
   
   return (
-    <div className="dashboard-container">
+    <div className="page-container">
       <header className="dashboard-header">
-        <h1>Личный кабинет</h1>
+        <h1>Научные Обзоры</h1>
         <div className="user-info">
-          <span>Привет, {user?.firstname || 'Пользователь'}!</span>
+          <span>Привет, {user?.fullName || 'Пользователь'}!</span>
           <a href="/logout" className="logout-link">Выйти</a>
         </div>
       </header>
       
-      <div className="dashboard-content">
-        <h2>Ваш профиль</h2>
-        <div className="profile-info">
-          <p><strong>Имя:</strong> {user?.firstname}</p>
-          <p><strong>Фамилия:</strong> {user?.lastname}</p>
-          <p><strong>Email:</strong> {user?.email}</p>
-        </div>
-      </div>
+      <UserProfile />
     </div>
   );
 }
