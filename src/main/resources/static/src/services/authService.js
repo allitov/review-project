@@ -33,7 +33,7 @@ const authService = {
   },
   
   // Регистрация пользователя
-  register: async (firstname, lastname, email, password) => {
+  register: async (fullName, email, password) => {
     const response = await fetch(API_URL + 'register', {
       method: 'POST',
       headers: {
@@ -41,8 +41,7 @@ const authService = {
       },
       // Формируем объект в соответствии с RegisterRequest
       body: JSON.stringify({ 
-        firstname, 
-        lastname,
+        fullName,
         email, 
         password 
       }),

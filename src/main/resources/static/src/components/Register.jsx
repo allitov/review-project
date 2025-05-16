@@ -5,8 +5,7 @@ import authService from '../services/authService';
 
 function Register() {
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    fullName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -38,8 +37,7 @@ function Register() {
     try {
       // Вызываем метод register из authService
       await authService.register(
-        formData.firstname,
-        formData.lastname,
+        formData.fullName,
         formData.email,
         formData.password
       );
@@ -63,24 +61,12 @@ function Register() {
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="firstname">Имя</label>
+            <label htmlFor="fullName">Полное имя</label>
             <input
               type="text"
-              id="firstname"
-              name="firstname"
-              value={formData.firstname}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="lastname">Фамилия</label>
-            <input
-              type="text"
-              id="lastname"
-              name="lastname"
-              value={formData.lastname}
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
               required
             />
