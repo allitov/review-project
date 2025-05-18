@@ -3,3 +3,7 @@ databaseChangeLog:
       file: db/changelog/changeset/users/users_V001__initial.sql
   - include:
       file: db/changelog/changeset/articles/articles_V001__initial.sql
+  - include:
+      file: db/changelog/changeset/reviews/reviews_V001__initial.sql
+  - include:
+      file: db/changelog/changeset/articles/articles_V002__article_status.sql

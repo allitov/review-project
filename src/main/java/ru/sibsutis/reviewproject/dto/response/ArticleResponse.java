@@ -15,4 +15,5 @@ public class ArticleResponse {
     private String title;
     private String content;
     private Long authorId;
+    private Boolean reviewed;
 }

@@ -35,4 +35,7 @@ public class Article {
 
     @Column(name = "content", nullable = false, length = Integer.MAX_VALUE)
     private String content;
+
+    @Column(name = "reviewed")
+    private Boolean reviewed;
 }

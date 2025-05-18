@@ -1,0 +1,2 @@
+ALTER TABLE articles
+    ADD COLUMN reviewed BOOLEAN DEFAULT FALSE
