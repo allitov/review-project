@@ -3,6 +3,7 @@ package ru.sibsutis.reviewproject.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.sibsutis.reviewproject.dto.request.ReviewRequest;
+import ru.sibsutis.reviewproject.dto.response.ReviewListResponse;
 import ru.sibsutis.reviewproject.entity.Review;
 import ru.sibsutis.reviewproject.mapper.ReviewMapper;
 import ru.sibsutis.reviewproject.repository.ArticleRepository;
@@ -18,6 +19,10 @@ public class ReviewService {
 
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
+
+    public ReviewListResponse getAllReviewsByReviewerId(Long id) {
+        return reviewMapper.toReviewListResponse(reviewRepository.findByReviewerId(id));
+    }
 
     public void createReview(ReviewRequest request) {
         Review review = reviewMapper.toReviewEntity(request);

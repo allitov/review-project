@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import ru.sibsutis.reviewproject.dto.request.ReviewRequest;
+import ru.sibsutis.reviewproject.dto.response.ReviewListResponse;
 import ru.sibsutis.reviewproject.dto.response.ReviewResponse;
 import ru.sibsutis.reviewproject.entity.Review;
 
@@ -15,5 +16,12 @@ public interface ReviewMapper {
 
     @Mapping(target = "articleId", source = "article.id")
     @Mapping(target = "reviewerId", source = "reviewer.id")
-    ReviewResponse toReviewRequest(Review review);
+    ReviewResponse toReviewResponse(Review review);
+
+    default ReviewListResponse toReviewListResponse(Iterable<Review> reviews) {
+        ReviewListResponse response = new ReviewListResponse();
+        reviews.forEach(article -> response.getReviews().add(toReviewResponse(article)));
+
+        return response;
+    }
 }
