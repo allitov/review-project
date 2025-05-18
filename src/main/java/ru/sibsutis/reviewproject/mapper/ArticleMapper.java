@@ -15,6 +15,7 @@ public interface ArticleMapper {
     Article toArticleEntity(ArticleRequest article);
 
     @Mapping(target = "authorId", source = "author.id")
+    @Mapping(target = "authorName", source = "author.fullName")
     ArticleResponse toArticleResponse(Article article);
 
     default ArticleListResponse toArticleListResponse(Iterable<Article> articles) {

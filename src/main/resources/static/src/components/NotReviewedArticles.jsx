@@ -64,7 +64,7 @@ function NotReviewedArticles() {
             <div key={article.id} className="article-card">
               <h3>{article.title}</h3>
               <p><strong>Автор:</strong> {article.authorName}</p>
-              <p><strong>Дата публикации:</strong> {new Date(article.createdAt).toLocaleDateString()}</p>
+              {/*<p><strong>Дата публикации:</strong> {new Date(article.createdAt).toLocaleDateString()}</p>*/}
               <p>{article.content.substring(0, 150)}...</p>
               <button 
                 className="btn primary"
