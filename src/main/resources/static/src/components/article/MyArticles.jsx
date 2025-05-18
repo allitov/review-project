@@ -1,69 +1,50 @@
-// src/main/resources/static/src/components/article/MyArticles.jsx
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import articleService from '../../services/articleService';
-import authService from '../../services/authService';
-import ArticleItem from './ArticleItem';
 import '../../styles/articles.css';
 
-const MyArticles = () => {
+function MyArticles() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  const currentUser = authService.getCurrentUser();
-  const authorId = currentUser?.id;
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      if (!authorId) {
-        setLoading(false);
-        return;
-      }
-      
+    const fetchMyArticles = async () => {
       try {
         setLoading(true);
-        const data = await articleService.getArticlesByAuthor(authorId);
-        setArticles(data);
-        setError(null);
-      } catch (err) {
-        setError('Не удалось загрузить статьи. Пожалуйста, попробуйте позже.');
-        console.error(err);
+        const response = await articleService.getCurrentUserArticles();
+        setArticles(response.articles);
+      } catch (error) {
+        setError('Не удалось загрузить статьи: ' + error.message);
+        console.error('Ошибка при загрузке статей:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchArticles();
-  }, [authorId]);
+    fetchMyArticles();
+  }, []);
 
+  if (loading) return <div>Загрузка статей...</div>;
+  if (error) return <div className="error">{error}</div>;
+  
   return (
-    <div className="article-container">
-      <div className="articles-header">
-        <h2>Мои статьи</h2>
-        <Link to="/publish-article" className="btn-primary">
-          Опубликовать новую статью
-        </Link>
-      </div>
-
-      {loading && <div className="loading-indicator">Загрузка статей...</div>}
-      
-      {error && <div className="error-message">{error}</div>}
-      
-      {!loading && !error && articles.length === 0 && (
-        <div className="empty-state">
-          <p>У вас пока нет опубликованных статей.</p>
-          <Link to="/publish-article" className="btn-primary">Опубликовать первую</Link>
+    <div className="my-articles">
+      <h2>Мои статьи</h2>
+      {articles.length === 0 ? (
+        <p>У вас пока нет статей</p>
+      ) : (
+        <div className="articles-list">
+          {articles.map(article => (
+            <div className="article-card" key={article.id}>
+              <h3>{article.title}</h3>
+              <p>{article.content.substring(0, 150)}...</p>
+              {/* Здесь могут быть дополнительные элементы, например, кнопки редактирования */}
+            </div>
+          ))}
         </div>
       )}
-      
-      <div className="articles-list">
-        {articles.map(article => (
-          <ArticleItem key={article.id} article={article} />
-        ))}
-      </div>
     </div>
   );
-};
+}
 
 export default MyArticles;

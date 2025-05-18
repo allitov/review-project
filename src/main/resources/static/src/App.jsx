@@ -1,4 +1,3 @@
-// src/main/resources/static/src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';

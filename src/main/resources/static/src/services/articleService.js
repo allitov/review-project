@@ -48,6 +48,34 @@ async createArticle(articleData) {
     console.error('Ошибка при создании статьи:', error);
     throw error;
   }
+},
+// Добавим метод для получения статей текущего пользователя
+async getCurrentUserArticles() {
+  try {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    if (!user || !user.userId) {
+      throw new Error('Пользователь не авторизован или отсутствует ID пользователя');
+    }
+    
+    // Используем существующий эндпоинт с ID текущего пользователя
+    const response = await fetch(`${API_URL}/${user.userId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Ошибка при получении статей пользователя');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Ошибка при получении статей пользователя:', error);
+    throw error;
+  }
 }
 };
 
