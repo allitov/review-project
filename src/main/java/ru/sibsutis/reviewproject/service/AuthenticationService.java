@@ -31,38 +31,14 @@ public class AuthenticationService {
             throw new RuntimeException("Пользователь с таким email уже существует");
         }
 
-//        List<Role> roles = request.getRoles();
-//        if (roles == null || roles.isEmpty()) {
-//            roles = new ArrayList<>();
-//            roles.add(Role.ROLE_USER);
-//        }
-
         User user = authMapper.toUserEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-//        User user = new User();
-//        user.setFullName(request.getFullName());
-//        user.setEmail(request.getEmail());
-//        user.setPassword(passwordEncoder.encode(request.getPassword()));
-//        user.setSpecialization(request.getSpecialization());
-//        user.setLocation(request.getLocation());
-//        user.setBio(request.getBio());
-//        user.setInstitution(request.getInstitution());
-//        user.setFieldOfExp(request.getFieldOfExp());
-//        user.setRoles(roles);
 
         userRepository.save(user);
 
         String jwtToken = jwtService.generateToken(user);
 
         return authMapper.toAuthResponse(user, jwtToken);
-
-//        return AuthResponse.builder()
-//                .token(jwtToken)
-//                .userId(user.getId())
-//                .email(user.getEmail())
-//                .fullName(user.getFullName())
-//                .build();
     }
 
     public AuthResponse authenticate(AuthRequest request) {
@@ -79,13 +55,6 @@ public class AuthenticationService {
             String jwtToken = jwtService.generateToken(user);
 
             return authMapper.toAuthResponse(user, jwtToken);
-
-//            return AuthResponse.builder()
-//                    .token(jwtToken)
-//                    .userId(user.getId())
-//                    .email(user.getEmail())
-//                    .fullName(user.getFullName())
-//                    .build();
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Неверный email или пароль");
         }
