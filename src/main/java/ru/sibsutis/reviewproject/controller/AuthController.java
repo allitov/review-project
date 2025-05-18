@@ -1,6 +1,7 @@
 package ru.sibsutis.reviewproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import ru.sibsutis.reviewproject.dto.request.RegisterRequest;
 import ru.sibsutis.reviewproject.dto.response.AuthResponse;
 import ru.sibsutis.reviewproject.service.AuthenticationService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -25,6 +27,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
+        AuthResponse response = authenticationService.authenticate(request);
+        log.info("Response: {}", response);
+
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }

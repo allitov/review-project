@@ -23,6 +23,7 @@ public interface AuthMapper {
     @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "email", source = "user.email")
     @Mapping(target = "fullName", source = "user.fullName")
+    @Mapping(target = "role", expression = "java(parseRolesToString(user.getRoles()))")
     AuthResponse toAuthResponse(User user, String jwtToken);
 
     default List<Role> getRolesWithDefault(List<Role> roles) {
@@ -31,6 +32,11 @@ public interface AuthMapper {
             defaultRoles.add(Role.ROLE_USER);
             return defaultRoles;
         }
+
         return roles;
+    }
+
+    default String parseRolesToString(List<Role> roles) {
+        return roles.getFirst().name();
     }
 }
