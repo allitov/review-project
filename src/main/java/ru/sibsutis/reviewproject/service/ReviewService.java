@@ -28,6 +28,7 @@ public class ReviewService {
         Review review = reviewMapper.toReviewEntity(request);
         review.setArticle(articleRepository.findById(request.getArticleId()).orElseThrow());
         review.setReviewer(userRepository.findById(request.getReviewerId()).orElseThrow());
+        review.getArticle().setReviewed(true);
 
         reviewRepository.save(review);
     }
