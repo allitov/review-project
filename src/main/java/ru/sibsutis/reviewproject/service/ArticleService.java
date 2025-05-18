@@ -35,4 +35,10 @@ public class ArticleService {
 
         return articleMapper.toArticleResponse(savedArticle);
     }
+
+    public ArticleListResponse findAllNotReviewed() {
+        List<Article> articles = articleRepository.findByReviewedFalse();
+
+        return articleMapper.toArticleListResponse(articles);
+    }
 }

@@ -1,6 +1,5 @@
 package ru.sibsutis.reviewproject.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,5 +35,13 @@ public class ArticleController {
     public ArticleResponse createArticle(@RequestBody ArticleRequest request) {
         log.info("Create article: {}", request);
         return articleService.createArticle(request);
+    }
+
+    @GetMapping("/not-reviewed")
+    @ResponseStatus(HttpStatus.OK)
+    public ArticleListResponse findAllNotReviewed() {
+        log.info("Find all not reviewed articles");
+
+        return articleService.findAllNotReviewed();
     }
 }
