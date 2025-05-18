@@ -14,6 +14,8 @@ public class ReviewResponse {
     private Long id;
     private Long articleId;
     private Long reviewerId;
+    private String authorName;
+    private String articleTitle;
     private Integer rating;
     private String comment;
     private String recommendation;

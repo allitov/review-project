@@ -49,11 +49,12 @@ function MyReviews() {
         <div className="articles-list">
           {reviews.map(review => (
             <div key={review.id} className="article-card">
-              <h3>{review.article.title}</h3>
-              <p><strong>Автор статьи:</strong> {review.article.authorName}</p>
-              <p><strong>Статус:</strong> {review.status}</p>
+              <h3>{review.articleTitle}</h3>
+              <p><strong>Автор статьи:</strong> {review.authorName}</p>
+              <p><strong>Рейтинг:</strong> {review.rating}</p>
               <p><strong>Комментарий:</strong> {review.comment}</p>
-              <p><strong>Дата рецензии:</strong> {new Date(review.createdAt).toLocaleDateString()}</p>
+              <p><strong>Рекомендации:</strong> {review.recommendation}</p>
+              {/*<p><strong>Дата рецензии:</strong> {new Date(review.createdAt).toLocaleDateString()}</p>*/}
             </div>
           ))}
         </div>

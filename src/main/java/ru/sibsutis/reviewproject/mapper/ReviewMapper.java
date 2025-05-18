@@ -16,6 +16,8 @@ public interface ReviewMapper {
 
     @Mapping(target = "articleId", source = "article.id")
     @Mapping(target = "reviewerId", source = "reviewer.id")
+    @Mapping(target = "articleTitle", source = "article.title")
+    @Mapping(target = "authorName", source = "article.author.fullName")
     ReviewResponse toReviewResponse(Review review);
 
     default ReviewListResponse toReviewListResponse(Iterable<Review> reviews) {
