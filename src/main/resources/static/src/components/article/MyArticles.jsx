@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import articleService from '../../services/articleService';
+import ReviewDetails from './ReviewDetails';
 import '../../styles/articles.css';
 
 function MyArticles() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
 
   useEffect(() => {
     const fetchMyArticles = async () => {
@@ -24,6 +26,14 @@ function MyArticles() {
     fetchMyArticles();
   }, []);
 
+  const handleViewReview = (articleId) => {
+    setSelectedArticleId(articleId);
+  };
+
+  const handleCloseReview = () => {
+    setSelectedArticleId(null);
+  };
+
   if (loading) return <div>Загрузка статей...</div>;
   if (error) return <div className="error">{error}</div>;
   
@@ -36,13 +46,34 @@ function MyArticles() {
         <div className="articles-list">
           {articles.map(article => (
             <div className="article-card" key={article.id}>
-              <h3>{article.title}</h3>
+              <h3>
+                {article.title}
+                <span className={`ready-badge ${article.reviewed}`}>
+                  {article.reviewed ? 'готово' : 'не готово'}
+                </span>
+              </h3>
               <p>{article.content.substring(0, 150)}...</p>
-              <p>Статус: {article.reviewed ? 'готово' : 'не готово'}</p>
-              {/* Здесь могут быть дополнительные элементы, например, кнопки редактирования */}
+              <div className="article-actions">
+                {article.reviewed && (
+                  <button 
+                    className="btn primary"
+                    onClick={() => handleViewReview(article.id)}
+                  >
+                    Посмотреть рецензию
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>
+      )}
+
+      {/* Модальное окно для просмотра рецензии */}
+      {selectedArticleId && (
+        <ReviewDetails 
+          articleId={selectedArticleId} 
+          onClose={handleCloseReview} 
+        />
       )}
     </div>
   );
