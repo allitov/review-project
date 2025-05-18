@@ -30,7 +30,7 @@ public class ArticleService {
     public ArticleResponse createArticle(ArticleRequest request) {
         Article article = articleMapper.toArticleEntity(request);
         article.setAuthor(userRepository.findById(request.getAuthorId()).orElseThrow());
-
+        article.setReviewed(false);
         Article savedArticle = articleRepository.save(article);
 
         return articleMapper.toArticleResponse(savedArticle);

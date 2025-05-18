@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sibsutis.reviewproject.dto.request.ReviewRequest;
 import ru.sibsutis.reviewproject.dto.response.ReviewListResponse;
+import ru.sibsutis.reviewproject.dto.response.ReviewResponse;
 import ru.sibsutis.reviewproject.service.ReviewService;
 
 @RestController
@@ -19,6 +20,11 @@ import ru.sibsutis.reviewproject.service.ReviewService;
 public class ReviewController {
 
     private final ReviewService reviewService;
+
+    @GetMapping("/ready/{articleId}")
+    public ReviewResponse getReviewByArticleId(@PathVariable("articleId") Long articleId) {
+        return reviewService.getReviewByArticleId(articleId);
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.sibsutis.reviewproject.dto.request.ReviewRequest;
 import ru.sibsutis.reviewproject.dto.response.ReviewListResponse;
+import ru.sibsutis.reviewproject.dto.response.ReviewResponse;
 import ru.sibsutis.reviewproject.entity.Review;
 import ru.sibsutis.reviewproject.mapper.ReviewMapper;
 import ru.sibsutis.reviewproject.repository.ArticleRepository;
@@ -19,6 +20,12 @@ public class ReviewService {
 
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
+
+    public ReviewResponse getReviewByArticleId(Long articleId) {
+        Review review = reviewRepository.findByArticleId(articleId).orElseThrow();
+
+        return reviewMapper.toReviewResponse(review);
+    }
 
     public ReviewListResponse getAllReviewsByReviewerId(Long id) {
         return reviewMapper.toReviewListResponse(reviewRepository.findByReviewerId(id));
