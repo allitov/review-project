@@ -38,6 +38,7 @@ function MyArticles() {
             <div className="article-card" key={article.id}>
               <h3>{article.title}</h3>
               <p>{article.content.substring(0, 150)}...</p>
+              <p>Статус: {article.reviewed ? 'готово' : 'не готово'}</p>
               {/* Здесь могут быть дополнительные элементы, например, кнопки редактирования */}
             </div>
           ))}

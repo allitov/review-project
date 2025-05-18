@@ -1,0 +1,29 @@
+package ru.sibsutis.reviewproject.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.sibsutis.reviewproject.dto.request.ReviewRequest;
+import ru.sibsutis.reviewproject.entity.Review;
+import ru.sibsutis.reviewproject.mapper.ReviewMapper;
+import ru.sibsutis.reviewproject.repository.ArticleRepository;
+import ru.sibsutis.reviewproject.repository.ReviewRepository;
+import ru.sibsutis.reviewproject.repository.UserRepository;
+
+@Service
+@RequiredArgsConstructor
+public class ReviewService {
+
+    private final ReviewRepository reviewRepository;
+    private final ReviewMapper reviewMapper;
+
+    private final ArticleRepository articleRepository;
+    private final UserRepository userRepository;
+
+    public void createReview(ReviewRequest request) {
+        Review review = reviewMapper.toReviewEntity(request);
+        review.setArticle(articleRepository.findById(request.getArticleId()).orElseThrow());
+        review.setReviewer(userRepository.findById(request.getReviewerId()).orElseThrow());
+
+        reviewRepository.save(review);
+    }
+}
