@@ -84,6 +84,22 @@ const authService = {
   // Получение токена для аутентификации запросов
   getToken: () => {
     return localStorage.getItem('token');
+  },
+  
+  // Проверка роли пользователя
+  hasRole: (role) => {
+    const user = authService.getCurrentUser();
+    return user && user.role === role;
+  },
+
+  // Проверка, является ли пользователь рецензентом
+  isReviewer: () => {
+    return authService.hasRole('ROLE_REVIEWER');
+  },
+
+  // Проверка, является ли пользователь обычным пользователем
+  isUser: () => {
+    return authService.hasRole('ROLE_USER');
   }
 };
 
