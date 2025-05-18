@@ -1,0 +1,92 @@
+/* src/main/resources/static/src/styles/articles.css */
+.article-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.articles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.article-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.article-item h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.article-content {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.article-footer {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8em;
+  color: #777;
+}
+
+.article-form .form-group {
+  margin-bottom: 20px;
+}
+
+.article-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.article-form .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.article-form textarea.form-control {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  color: #666;
+  margin: 20px 0;
+}
