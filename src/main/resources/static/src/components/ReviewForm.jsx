@@ -1,4 +1,3 @@
-// ReviewForm.jsx
 import React, { useState } from 'react';
 import authService from '../services/authService.js';
 import './ReviewForm.css';
@@ -7,7 +6,7 @@ function ReviewForm({ article, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
     articleId: article.id,
     reviewerId: authService.getCurrentUser().userId,
-    rating: 5, // Значение по умолчанию
+    rating: 5,
     comment: '',
     recommendation: ''
   });
@@ -42,8 +41,7 @@ function ReviewForm({ article, onClose, onSuccess }) {
         const errorData = await response.json().catch(() => null);
         throw new Error(errorData?.message || 'Не удалось отправить рецензию');
       }
-      
-      // Вызываем callback успешного завершения
+
       onSuccess && onSuccess();
       onClose();
       

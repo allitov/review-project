@@ -68,7 +68,6 @@ function MyArticles() {
         </div>
       )}
 
-      {/* Модальное окно для просмотра рецензии */}
       {selectedArticleId && (
         <ReviewDetails 
           articleId={selectedArticleId} 

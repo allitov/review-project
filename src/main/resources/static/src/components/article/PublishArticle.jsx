@@ -1,4 +1,3 @@
-// src/main/resources/static/src/components/article/PublishArticle.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import articleService from '../../services/articleService';

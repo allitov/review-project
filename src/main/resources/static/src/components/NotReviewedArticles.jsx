@@ -1,4 +1,3 @@
-// NotReviewedArticles.jsx (обновленная версия)
 import React, { useState, useEffect } from 'react';
 import authService from '../services/authService';
 import ReviewForm from './ReviewForm';

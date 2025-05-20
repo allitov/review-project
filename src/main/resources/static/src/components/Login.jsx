@@ -26,10 +26,8 @@ function Login() {
     setError('');
     
     try {
-      // Вызываем метод login из authService
       await authService.login(formData.email, formData.password);
-      
-      // После успешного входа перенаправляем на защищенную страницу
+
       navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Ошибка при входе. Проверьте почту и пароль.');

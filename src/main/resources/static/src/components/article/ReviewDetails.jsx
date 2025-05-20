@@ -1,4 +1,3 @@
-// ReviewDetails.jsx
 import React, { useState, useEffect } from 'react';
 import authService from '../../services/authService.js';
 import '../ReviewForm.css';

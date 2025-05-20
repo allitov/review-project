@@ -1,4 +1,3 @@
-// MyReviews.jsx
 import React, { useState, useEffect } from 'react';
 import authService from '../services/authService';
 import '../styles/articles.css';

@@ -1,4 +1,3 @@
-// src/main/resources/static/src/components/article/ArticleItem.jsx
 import React from 'react';
 
 const ArticleItem = ({ article }) => {

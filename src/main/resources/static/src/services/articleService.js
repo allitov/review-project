@@ -26,8 +26,7 @@ async createArticle(articleData) {
   try {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
-    
-    // Добавляем ID пользователя в данные статьи
+
     articleData.authorId = user.userId;
     
     const response = await fetch(API_URL, {
@@ -49,7 +48,7 @@ async createArticle(articleData) {
     throw error;
   }
 },
-// Добавим метод для получения статей текущего пользователя
+
 async getCurrentUserArticles() {
   try {
     const token = localStorage.getItem('token');
@@ -58,8 +57,7 @@ async getCurrentUserArticles() {
     if (!user || !user.userId) {
       throw new Error('Пользователь не авторизован или отсутствует ID пользователя');
     }
-    
-    // Используем существующий эндпоинт с ID текущего пользователя
+
     const response = await fetch(`${API_URL}/${user.userId}`, {
       method: 'GET',
       headers: {

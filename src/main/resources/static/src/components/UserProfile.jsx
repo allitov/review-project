@@ -3,7 +3,6 @@ import userService from '../services/userService';
 import authService from '../services/authService';
 import './profile/UserProfile.css';
 
-// Иконки
 const UserIcon = () => (
   <svg className="user-icon-svg" fill="currentColor" viewBox="0 0 20 20">
     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
@@ -30,13 +29,11 @@ function UserProfile() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
-  
-  // Для предотвращения циклических запросов
+
   const dataLoaded = useRef(false);
   
   const user = authService.getCurrentUser();
 
-  // Получение базовых данных пользователя из локальных данных
   const getBaseUserData = () => {
     return {
       id: user?.userId,
@@ -48,7 +45,6 @@ function UserProfile() {
       bio: '',
       institution: '',
       fieldOfExp: '',
-      // Эти поля не приходят с бэкенда, но используются на фронтенде
       socialLinks: {
         twitter: '',
         linkedin: '',
@@ -57,7 +53,6 @@ function UserProfile() {
     };
   };
 
-  // Преобразование серверных данных в формат фронтенда
   const mergeServerData = (serverData, baseData) => {
     return {
       ...baseData,
@@ -73,7 +68,6 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    // Предотвращаем повторную загрузку данных
     if (dataLoaded.current) return;
     
     const loadData = async () => {
@@ -90,22 +84,18 @@ function UserProfile() {
       const baseUserData = getBaseUserData();
       
       try {
-        // Запрашиваем данные с сервера только один раз
         const serverData = await userService.getUserById(user.userId);
-        
-        // Объединяем данные с сервера и базовые данные
+
         const mergedData = mergeServerData(serverData, baseUserData);
         
         setUserData(mergedData);
         setFormData(mergedData);
-        
-        // Проверяем, заполнен ли профиль
+
         const incompleteProfile = !serverData.specialization && 
                                  !serverData.location && 
                                  !serverData.bio;
         setIsNewUser(incompleteProfile);
-        
-        // Отмечаем, что данные успешно загружены
+
         dataLoaded.current = true;
       } catch (err) {
         console.error('Ошибка при загрузке данных пользователя:', err);
@@ -147,7 +137,6 @@ function UserProfile() {
     setSuccessMessage('');
     
     try {
-      // Подготавливаем данные в соответствии с форматом UserRequest
       const userRequest = {
         fullName: formData.fullName,
         email: formData.email,
@@ -157,11 +146,9 @@ function UserProfile() {
         institution: formData.institution || null,
         fieldOfExp: formData.fieldOfExp || null
       };
-      
-      // Отправляем запрос на обновление данных
+
       const updatedServerData = await userService.updateUser(user.userId, userRequest);
-      
-      // Объединяем полученные данные с существующими фронтенд-данными
+
       const updatedData = mergeServerData(updatedServerData, formData);
       
       setUserData(updatedData);

@@ -1,8 +1,6 @@
-// src/main/resources/static/src/services/userService.js
 const API_URL = '/api/v1/users/';
 
 const userService = {
-  // Получение данных пользователя
   getUserById: async (userId) => {
     const token = localStorage.getItem('token');
     
@@ -22,7 +20,6 @@ const userService = {
     return await response.json();
   },
   
-  // Обновление данных пользователя
   updateUser: async (userId, userData) => {
     const token = localStorage.getItem('token');
     

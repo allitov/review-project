@@ -35,15 +35,12 @@ function Register() {
     setError('');
     
     try {
-      // Вызываем метод register из authService
       await authService.register(
         formData.fullName,
         formData.email,
         formData.password
       );
-      
-      // После успешной регистрации перенаправляем на дашборд
-      // или можно на логин, если предпочтительнее
+
       navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Ошибка при регистрации. Попробуйте снова.');
