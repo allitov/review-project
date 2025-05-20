@@ -11,7 +11,6 @@ import './styles/common.css';
 import MyReviews from './components/MyReviews';
 import NotReviewedArticles from './components/NotReviewedArticles';
 
-// Компонент для обработки выхода из системы
 function Logout() {
   const navigate = useNavigate();
   
@@ -23,7 +22,6 @@ function Logout() {
   return <div>Выход из системы...</div>;
 }
 
-// Модифицированный компонент навигации
 function NavBar() {
   const user = authService.getCurrentUser();
   const isReviewer = user && user.role === 'ROLE_REVIEWER';
@@ -35,13 +33,11 @@ function NavBar() {
         <li><a href="/dashboard">Профиль</a></li>
         
         {isReviewer ? (
-          // Навигация для рецензентов
           <>
             <li><a href="/my-reviews">Мои рецензии</a></li>
             <li><a href="/not-reviewed-articles">Все статьи</a></li>
           </>
         ) : (
-          // Навигация для обычных пользователей
           <>
             <li><a href="/my-articles">Мои статьи</a></li>
             <li><a href="/publish-article">Опубликовать статью</a></li>
@@ -56,7 +52,6 @@ function NavBar() {
   );
 }
 
-// Компонент дашборда
 function Dashboard() {
   return (
     <div className="page-container">
@@ -68,7 +63,6 @@ function Dashboard() {
   );
 }
 
-// Защищенный маршрут
 const ProtectedRoute = ({ children }) => {
   if (!authService.isAuthenticated()) {
     return <Navigate to="/login" replace />;
@@ -76,7 +70,6 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// Компонент для страницы "Мои статьи"
 function ArticlesPage() {
   return (
     <div className="page-container">
@@ -88,7 +81,6 @@ function ArticlesPage() {
   );
 }
 
-// Компонент для страницы "Опубликовать статью"
 function PublishArticlePage() {
   return (
     <div className="page-container">
@@ -100,7 +92,6 @@ function PublishArticlePage() {
   );
 }
 
-// Компонент для страницы "Мои рецензии"
 function MyReviewsPage() {
   return (
     <div className="page-container">
@@ -112,7 +103,6 @@ function MyReviewsPage() {
   );
 }
 
-// Компонент для страницы "Все статьи" (неотрецензированные)
 function NotReviewedArticlesPage() {
   return (
     <div className="page-container">
@@ -132,8 +122,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
-          
-          {/* Общие защищённые маршруты */}
+
           <Route 
             path="/dashboard" 
             element={
@@ -142,8 +131,7 @@ function App() {
               </ProtectedRoute>
             } 
           />
-          
-          {/* Маршруты для обычных пользователей */}
+
           <Route 
             path="/my-articles" 
             element={
@@ -160,8 +148,7 @@ function App() {
               </ProtectedRoute>
             } 
           />
-          
-          {/* Маршруты для рецензентов */}
+
           <Route 
             path="/my-reviews" 
             element={
